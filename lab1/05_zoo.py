@@ -8,7 +8,7 @@ zoo = ['lion', 'kangaroo', 'elephant', 'monkey', ]
 # посадите медведя (bear) между львом и кенгуру
 #  и выведите список на консоль
 zoo.insert(1, 'bear')
-print("После добавления медведя:", zoo)
+print(zoo)
 
 # добавьте птиц из списка birds в последние клетки зоопарка
 birds = ['rooster', 'ostrich', 'lark', ]
