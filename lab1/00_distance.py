@@ -14,7 +14,12 @@ sites = {
 
 distances = {}
 
-# TODO здесь заполнение словаря
+for firstSite in sites.keys():
+    for secondSite in sites.keys():
+        if(firstSite == secondSite):
+            continue
+        name = firstSite + "-" + secondSite
+        distances[name] = ((sites[firstSite][0] - sites[secondSite][0]) ** 2 + (sites[firstSite][1] - sites[secondSite][1]) ** 2) ** 0.5
 
 print(distances)
 

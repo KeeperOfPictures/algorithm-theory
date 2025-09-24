@@ -1,1 +1,1 @@
-"# algorithm-theory" 
+# algorithm-theory
