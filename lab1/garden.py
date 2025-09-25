@@ -22,3 +22,4 @@ def garden():
 
     # выведите на консоль те, которые растут на лугу, но не растут в саду
     print(meadow_set.difference(garden_set))
+    return (garden_set.union(meadow_set), garden_set.intersection(meadow_set), garden_set.difference(meadow_set), meadow_set.difference(garden_set))

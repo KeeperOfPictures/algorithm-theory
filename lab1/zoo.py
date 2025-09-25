@@ -27,3 +27,4 @@ def zoo():
     lark_cell = zoo.index('lark') + 1
     print(lion_cell)
     print(lark_cell)
+    return(zoo, lion_cell, lark_cell)

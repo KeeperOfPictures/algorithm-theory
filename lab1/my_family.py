@@ -26,3 +26,4 @@ def get_family_height():
     # Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
     #   Общий рост моей семьи - ХХ см
     print("общий рост моей семьи -", my_family_height[0][1] + my_family_height[1][1] + my_family_height[2][1], "см")
+    return (my_family_height[0][1], my_family_height[0][1] + my_family_height[1][1] + my_family_height[2][1])
