@@ -1,0 +1,51 @@
+from distance import get_distances
+from circle import (
+    calculate_circle_area,
+    is_in_circle
+)
+from operations import calculate_operations
+from favorite_movies import get_movies
+from my_family import get_family_height
+from zoo import zoo
+from songs_list import (
+    print_list_duration,
+    print_dict_duration
+)
+from secret import (
+    decrypt_message
+)
+from garden import garden
+from store import get_goods
+
+print("[===1st===]")
+print(get_distances())
+
+print("[===2nd===]")
+print(calculate_circle_area(42))
+print(is_in_circle(42, 23, 34))
+print(is_in_circle(42, 30, 30))
+
+print("[===3rd===]")
+print(calculate_operations())
+
+print("[===4th===]")
+print(list(get_movies()))
+
+print("[===5th===]")
+get_family_height()
+
+print("[===6th===]")
+zoo()
+
+print("[===7th===]")
+print_list_duration()
+print_dict_duration()
+
+print("[===8th===]")
+decrypt_message()
+
+print("[===9th===]")
+garden()
+
+print("[===11th===]")
+get_goods()
