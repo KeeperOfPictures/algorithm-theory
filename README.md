@@ -1,3 +1,4 @@
 # algorithm-theory
 
-заглушка
+## ссылки к лабам
+[lab1](./lab1/lab1.md)
