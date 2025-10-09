@@ -47,7 +47,7 @@ def print_dict_duration():
         'Policy of Truth': 4.88,
         'Blue Dress': 4.18,
         'Clean': 5.68,
-    }
+}
 
     # распечатайте общее время звучания трех песен: 'Sweetest Perfection', 'Policy of Truth' и 'Blue Dress'
     #   А другие три песни звучат ХХХ минут
@@ -55,9 +55,9 @@ def print_dict_duration():
     total_time_list = 0
     songs_to_find = ['Sweetest Perfection', 'Policy of Truth', 'Blue Dress']
 
-    for song in violator_songs_dict:
-        if song[0] in songs_to_find:
-            total_time_list += song[1]
+    for song in violator_songs_dict.keys():
+        if song in songs_to_find:
+            total_time_list += violator_songs_dict[song]
 
     total_time_rounded = round(total_time_list, 2)
     print(f"А другие три песни звучат {total_time_rounded} минут")

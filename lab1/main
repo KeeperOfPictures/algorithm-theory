@@ -17,35 +17,35 @@ from secret import (
 from garden import garden
 from store import get_goods
 
-print("[===1st===]")
+print("\n1 lab\n")
 print(get_distances())
 
-print("[===2nd===]")
+print("\n2 lab\n")
 print(calculate_circle_area(42))
 print(is_in_circle(42, 23, 34))
 print(is_in_circle(42, 30, 30))
 
-print("[===3rd===]")
+print("\n3 lab\n")
 print(calculate_operations())
 
-print("[===4th===]")
+print("\n4 lab\n")
 print(list(get_movies()))
 
-print("[===5th===]")
+print("\n5 lab\n")
 get_family_height()
 
-print("[===6th===]")
+print("\n6 lab\n")
 zoo()
 
-print("[===7th===]")
+print("\n7 lab\n")
 print_list_duration()
 print_dict_duration()
 
-print("[===8th===]")
+print("\n8 lab\n")
 decrypt_message()
 
-print("[===9th===]")
+print("\n9 lab\n")
 garden()
 
-print("[===11th===]")
+print("\n11 lab\n")
 get_goods()
