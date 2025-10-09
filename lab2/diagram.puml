@@ -1,0 +1,117 @@
+@startuml
+
+!theme plain
+
+abstract class Shape3D {
+  - {abstract} _calculate_volume(): float
+  - {abstract} _calculate_surface_area(): float
+  - _material: Material
+  - _volume: float
+  - _surface_area: float
+  + {property} material: Material
+  + {property} volume: float
+  + {property} surface_area: float
+  + {property} mass: float
+  + to_dict(): Dict[str, Any]
+  + __str__(): str
+  + __repr__(): str
+}
+
+class Parallelepiped {
+  - _length: float
+  - _width: float
+  - _height: float
+  + {property} length: float
+  + {property} width: float
+  + {property} height: float
+  + __eq__(other): bool
+  + __add__(other): float
+}
+
+class Tetrahedron {
+  - _edge: float
+  + {property} edge: float
+  + __eq__(other): bool
+  + __lt__(other): bool
+}
+
+class Sphere {
+  - _radius: float
+  + {property} radius: float
+  + __eq__(other): bool
+  + __mul__(factor): Sphere
+}
+
+class Material {
+  - _name: str
+  - _density: float
+  + {property} name: str
+  + {property} density: float
+  + __str__(): str
+  + __repr__(): str
+}
+
+class Steel {
+}
+
+class Aluminum {
+}
+
+class Copper {
+}
+
+class ConsoleGeometryCalculator {
+  - shapes: Dict[str, Dict]
+  - materials: Dict[str, Dict]
+  - current_shape: Shape3D
+  - current_results: Dict[str, Any]
+  - current_parameters: Dict[str, float]
+  - db: GeometryDatabase
+  + clear_screen()
+  + display_header()
+  + get_user_choice(): str
+  + get_float_input(): float
+  + select_shape(): Tuple[Shape3D, Dict]
+  + select_material(): Material
+  + calculate_properties(): Dict[str, Any]
+  + display_results()
+  + save_to_database()
+  + view_calculation_history()
+  + show_statistics()
+  + save_report()
+  + save_as_text()
+  + save_as_csv()
+  + show_main_menu()
+  + run_calculation()
+}
+
+class GeometryDatabase {
+  - db_path: str
+  + init_database()
+  + save_calculation(shape_data, parameters)
+  + get_all_calculations(): List[Dict]
+  + get_calculation_by_id(calc_id): Dict
+  + delete_calculation(calc_id): bool
+  + get_statistics(): Dict[str, Any]
+}
+
+' Наследование
+Shape3D <|-- Parallelepiped
+Shape3D <|-- Tetrahedron
+Shape3D <|-- Sphere
+
+Material <|-- Steel
+Material <|-- Aluminum
+Material <|-- Copper
+
+' Композиция
+Shape3D *-- Material
+
+ConsoleGeometryCalculator *-- Shape3D
+ConsoleGeometryCalculator *-- Material
+ConsoleGeometryCalculator *-- GeometryDatabase
+
+' Ассоциация
+ConsoleGeometryCalculator --> GeometryDatabase
+
+@enduml
