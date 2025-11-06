@@ -63,7 +63,7 @@ class ConsoleGeometryCalculator:
         """Выбор фигуры"""
         self.clear_screen()
         self.display_header()
-        print("📐 ВЫБОР ФИГУРЫ")
+        print("ВЫБОР ФИГУРЫ")
         print("-" * 30)
         
         choice = self.get_user_choice(self.shapes, "Доступные фигуры:")
