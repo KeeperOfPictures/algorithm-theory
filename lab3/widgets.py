@@ -1,11 +1,27 @@
 from PySide6.QtWidgets import (QWidget, QVBoxLayout, QHBoxLayout, QTableWidget, 
                               QTableWidgetItem, QLineEdit, QPushButton, QLabel, 
                               QMessageBox, QHeaderView, QFormLayout, QGroupBox,
-                              QMainWindow, QMenuBar, QMenu, QStatusBar, QTextEdit)
+                              QMainWindow, QStatusBar, QDialog, QDialogButtonBox)
 from PySide6.QtCore import Qt
 from datetime import datetime
 from database import DatabaseManager
 from models import Artwork, ValidationError
+
+class DeleteConfirmationDialog(QDialog):
+    def __init__(self, artwork_title, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Подтверждение удаления")
+        self.setModal(True)
+        
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel(f"Вы уверены, что хотите удалить произведение:\n\"{artwork_title}\"?"))
+        
+        button_box = QDialogButtonBox(QDialogButtonBox.Yes | QDialogButtonBox.No)
+        button_box.accepted.connect(self.accept)
+        button_box.rejected.connect(self.reject)
+        
+        layout.addWidget(button_box)
+        self.setLayout(layout)
 
 class ArtworkTable(QWidget):
     def __init__(self):
@@ -23,6 +39,12 @@ class ArtworkTable(QWidget):
         refresh_btn = QPushButton("Обновить")
         refresh_btn.clicked.connect(self.load_data)
         header_layout.addWidget(refresh_btn)
+        
+        self.delete_btn = QPushButton("Удалить выбранное")
+        self.delete_btn.clicked.connect(self.delete_selected_artwork)
+        self.delete_btn.setEnabled(False)
+        header_layout.addWidget(self.delete_btn)
+        
         header_layout.addStretch()
         
         layout.addLayout(header_layout)
@@ -33,9 +55,45 @@ class ArtworkTable(QWidget):
             "ID", "Название", "Художник", "Год", "Стиль", "Цена (€)", "Дата добавления"
         ])
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
+        self.table.itemSelectionChanged.connect(self.on_selection_changed)
         
         layout.addWidget(self.table)
         self.setLayout(layout)
+    
+    def on_selection_changed(self):
+        has_selection = len(self.table.selectedItems()) > 0
+        self.delete_btn.setEnabled(has_selection)
+    
+    def get_selected_artwork_id(self):
+        selected_items = self.table.selectedItems()
+        if not selected_items:
+            return None
+        
+        return int(self.table.item(selected_items[0].row(), 0).text())
+    
+    def get_selected_artwork_title(self):
+        selected_items = self.table.selectedItems()
+        if not selected_items:
+            return None
+        
+        return self.table.item(selected_items[0].row(), 1).text()
+    
+    def delete_selected_artwork(self):
+        artwork_id = self.get_selected_artwork_id()
+        artwork_title = self.get_selected_artwork_title()
+        
+        if artwork_id is None:
+            QMessageBox.warning(self, "Предупреждение", "Не выбрано произведение для удаления")
+            return
+        
+        dialog = DeleteConfirmationDialog(artwork_title, self)
+        if dialog.exec() == QDialog.Accepted:
+            try:
+                self.db.delete_artwork(artwork_id)
+                self.load_data()
+                QMessageBox.information(self, "Успех", "Произведение успешно удалено!")
+            except Exception as e:
+                QMessageBox.critical(self, "Ошибка", f"Ошибка при удалении: {str(e)}")
     
     def load_data(self):
         try:
@@ -116,7 +174,7 @@ class InputForm(QWidget):
                 year=year,
                 style=self.style_input.text(),
                 price=price,
-                created_at=""  # Будет установлено в базе данных
+                created_at=""
             )
             
             self.db.add_artwork(artwork)
@@ -157,7 +215,10 @@ class MainWindow(QMainWindow):
         central_widget.setLayout(main_layout)
         self.setCentralWidget(central_widget)
         
-        self.statusBar().showMessage("Галерея готова к работе")
+        self.status_bar = QStatusBar()
+        self.setStatusBar(self.status_bar)
+        self.status_bar.showMessage("Готов к работе")
+        
         
     def closeEvent(self, event):
         reply = QMessageBox.question(

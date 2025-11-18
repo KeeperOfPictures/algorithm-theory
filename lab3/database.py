@@ -52,7 +52,7 @@ class DatabaseManager:
                       artwork.price, current_time))
                 conn.commit()
                 
-                logging.info(f"Добавлено произведение: {artwork.title} by {artwork.artist}")
+                logging.info(f"Added artwork: {artwork.title} by {artwork.artist}")
                 return cursor.lastrowid
         except sqlite3.Error as e:
             raise DatabaseError(f"Ошибка добавления произведения: {e}")
@@ -76,7 +76,7 @@ class DatabaseManager:
                 cursor = conn.cursor()
                 cursor.execute('DELETE FROM artworks WHERE id = ?', (artwork_id,))
                 conn.commit()
-                logging.info(f"Удалено произведение с ID: {artwork_id}")
+                logging.info(f"Deleted artwork with ID: {artwork_id}")
         except sqlite3.Error as e:
             raise DatabaseError(f"Ошибка удаления произведения: {e}")
    

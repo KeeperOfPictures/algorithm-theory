@@ -3,7 +3,6 @@ import math
 import sys
 import os
 
-# Добавляем путь к проекту
 sys.path.append(os.path.join(os.path.dirname(__file__), '.'))
 
 from geometry_package import Parallelepiped, Tetrahedron, Sphere, Steel, Aluminum, Copper
@@ -55,7 +54,6 @@ class TestVolumeCalculations:
         """Тест кэширования объема"""
         p = Parallelepiped(2, 3, 4)
         initial_volume = p.volume
-        # Второй вызов должен вернуть то же значение без пересчета
         assert p.volume == initial_volume
 
 
