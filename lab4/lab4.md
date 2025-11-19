@@ -46,3 +46,8 @@ python main.py
 ![](img/tab3.png)
 
 ![](img/tab4.png)
+
+## Требования
+
+Python 3.8+
+pyside6 6.5+

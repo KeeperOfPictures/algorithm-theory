@@ -197,7 +197,7 @@ class PerformanceTab(QWidget):
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Лаба 3")
+        self.setWindowTitle("Лаба 4")
         self.setGeometry(100, 100, 700, 500)
         
         tabs = QTabWidget()
