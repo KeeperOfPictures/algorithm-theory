@@ -16,9 +16,6 @@ class CircleTab(QWidget):
         title.setStyleSheet("font-size: 14pt; font-weight: bold;")
         layout.addWidget(title)
         
-        desc = QLabel("Генератор возвращает площади кругов с радиусами от 10 до 100")
-        layout.addWidget(desc)
-        
         btn = QPushButton("Сгенерировать все площади кругов")
         btn.clicked.connect(self.generate)
         layout.addWidget(btn)
@@ -52,9 +49,6 @@ class EmailTab(QWidget):
         title.setStyleSheet("font-size: 14pt; font-weight: bold;")
         layout.addWidget(title)
         
-        desc = QLabel("Генератор создает случайные email-адреса вида xxxxxxxx@mail.ru")
-        layout.addWidget(desc)
-        
         btn = QPushButton("Сгенерировать 10 email")
         btn.clicked.connect(self.generate)
         layout.addWidget(btn)
@@ -85,8 +79,6 @@ class FilterTab(QWidget):
         title.setStyleSheet("font-size: 14pt; font-weight: bold;")
         layout.addWidget(title)
         
-        desc = QLabel("Введите список целых чисел через пробел (останутся только двузначные числа)")
-        layout.addWidget(desc)
         
         layout.addWidget(QLabel("Введите числа через пробел:"))
         self.input = QLineEdit()
@@ -166,8 +158,6 @@ class PerformanceTab(QWidget):
         title.setStyleSheet("font-size: 14pt; font-weight: bold;")
         layout.addWidget(title)
         
-        desc = QLabel("Сравнение времени выполнения обычной и параллельной версий алгоритмов")
-        layout.addWidget(desc)
         
         self.btn_run = QPushButton("Запустить тесты производительности")
         self.btn_run.clicked.connect(self.run_performance_test)
@@ -200,13 +190,15 @@ class PerformanceTab(QWidget):
     def on_test_finished(self, results):
         self.btn_run.setEnabled(True)
         self.progress.setVisible(False)
+        self.output.setText(results)
+
 
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Лаба 3")
-        self.setGeometry(100, 100, 550, 600)
+        self.setGeometry(100, 100, 700, 500)
         
         tabs = QTabWidget()
         tabs.addTab(CircleTab(), "Площади кругов")

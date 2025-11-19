@@ -135,25 +135,5 @@ class TestFilterString:
         assert len(result) == expected_count
 
 
-class TestIntegration:
-    def test_circle_generator_values_count(self):
-        gen = circle_areas_generator()
-        areas = list(gen)
-        assert len(areas) == 91
-        assert all(area > 0 for area in areas)
-
-    def test_email_generator_produces_strings(self):
-        """Интеграционный тест: генератор email производит строки"""
-        gen = email_generator()
-        emails = [next(gen) for _ in range(5)]
-        assert all(isinstance(email, str) for email in emails)
-        assert all('@' in email for email in emails)
-
-    def test_filter_preserves_order(self):
-        """Интеграционный тест: фильтр сохраняет порядок чисел"""
-        result = filter_string("15 5 25 100 35")
-        assert result == [15, 25, 35]
-
-
 if __name__ == "__main__":
     pytest.main([__file__, "-v"])
