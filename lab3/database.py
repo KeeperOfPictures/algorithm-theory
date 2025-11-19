@@ -4,7 +4,6 @@ from datetime import datetime
 from models import Artwork, ValidationError
 
 class DatabaseError(Exception):
-    """Ошибка работы с базой данных"""
     pass
 
 class DatabaseManager:
